@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dependency Visualization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="logo">📦 depviz</div>
+      <div class="view-controls">
+        <button id="graphView">🌐 Graph</button>
+        <button id="treeView">🌳 Tree</button>
+        <button id="tableView">📋 Table</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search packages...">
+      </div>
+    </header>
+
+    <main>
+      <div id="graph"></div>
+      <div class="tooltip"></div>
+      <div class="side-panel">
+        <h3>Package Details</h3>
+        <div class="package-info"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="stats">
+        <div class="stat-item">📦 <span id="totalPackages">0</span> packages</div>
+        <div class="stat-item">🔄 <span id="duplicates">0</span> duplicates</div>
+        <div class="stat-item">⚠️ <span id="outdated">0</span> outdated</div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { DependencyGraph } from '/components/Graph.js';
+
+    // Initialize graph with data
+    const graph = new DependencyGraph(GRAPH_DATA_PLACEHOLDER);
+
+    // Update stats
+    const data = GRAPH_DATA_PLACEHOLDER;
+    const stats = {
+      totalPackages: 0,
+      duplicates: 0,
+      outdated: 0
+    };
+
+    function countStats(node) {
+      stats.totalPackages++;
+      if (node.duplicateOf) stats.duplicates++;
+      if (node.outdated) stats.outdated++;
+      Object.values(node.dependencies || {}).forEach(countStats);
+    }
+
+    countStats(data);
+
+    document.getElementById('totalPackages').textContent = stats.totalPackages;
+    document.getElementById('duplicates').textContent = stats.duplicates;
+    document.getElementById('outdated').textContent = stats.outdated;
+  </script>
+</body>
+</html> 

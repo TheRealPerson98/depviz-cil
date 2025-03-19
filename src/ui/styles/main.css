@@ -1,0 +1,242 @@
+:root {
+  --bg-primary: #1a1b26;
+  --bg-secondary: #24283b;
+  --text-primary: #a9b1d6;
+  --text-secondary: #787c99;
+  --accent-blue: #7aa2f7;
+  --accent-red: #f7768e;
+  --accent-orange: #ff9e64;
+  --accent-gray: #565f89;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+  margin: 0; 
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+/* Header Styles */
+header {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--accent-gray);
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+}
+
+.view-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.view-controls button {
+  background: transparent;
+  border: 1px solid var(--accent-gray);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-controls button:hover {
+  background: var(--accent-blue);
+  color: var(--bg-primary);
+}
+
+.search-bar {
+  flex: 0 1 300px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--accent-gray);
+  color: var(--text-primary);
+  border-radius: 4px;
+}
+
+/* Main Content */
+main {
+  position: relative;
+  overflow: hidden;
+}
+
+#graph {
+  width: 100%;
+  height: 100%;
+}
+
+/* Side Panel */
+.side-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--bg-secondary);
+  padding: 1rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.side-panel.active {
+  transform: translateX(0);
+}
+
+.side-panel h3 {
+  color: var(--accent-blue);
+  margin-bottom: 1rem;
+}
+
+.package-info {
+  margin-bottom: 1rem;
+}
+
+.package-info label {
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Footer */
+footer {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  text-align: center;
+  border-top: 1px solid var(--accent-gray);
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Node Styles */
+.node circle {
+  stroke-width: 2px;
+}
+
+.node.direct circle { fill: var(--accent-blue); }
+.node.duplicate circle { fill: var(--accent-red); }
+.node.large circle { fill: var(--accent-orange); }
+.node.outdated circle { fill: var(--accent-gray); }
+
+.node text {
+  font-size: 12px;
+  fill: var(--text-primary);
+}
+
+/* Link Styles */
+.link {
+  stroke: var(--accent-gray);
+  stroke-opacity: 0.4;
+  stroke-width: 1px;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background: var(--bg-secondary);
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--accent-gray);
+  pointer-events: none;
+  display: none;
+}
+
+/* Table View Styles */
+.table-container {
+  padding: 20px;
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dependency-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.dependency-table th {
+  background: var(--accent-gray);
+  color: var(--text-color);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 8px;
+  border-bottom: 2px solid var(--accent-gray);
+}
+
+.dependency-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--accent-gray);
+}
+
+.dependency-table tr:hover {
+  background: var(--accent-gray);
+  cursor: pointer;
+}
+
+.dependency-table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Tree View Styles */
+.link {
+  fill: none;
+  stroke: var(--accent-gray);
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  fill: var(--accent-color);
+  stroke: var(--accent-color);
+  stroke-width: 2px;
+}
+
+.node text {
+  font-size: 12px;
+  fill: var(--text-color);
+}
+
+.node.duplicate circle {
+  fill: var(--warning-color);
+  stroke: var(--warning-color);
+}
+
+.node.outdated circle {
+  fill: var(--error-color);
+  stroke: var(--error-color);
+}
+
+.node.large circle {
+  fill: var(--success-color);
+  stroke: var(--success-color);
+} 
